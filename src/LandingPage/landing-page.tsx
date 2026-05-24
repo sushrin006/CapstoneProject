@@ -22,25 +22,26 @@ export const LandingPage = () => {
           Get Started
         </Button>
       </div>
-      <div className="bg-[#F4F4F6] flex justify-between  gap-4 p-8">
+      <div className="bg-[#F4F4F6] flex justify-center  gap-4 p-8">
         <section className=" w-[50%] flex flex-col space-y-8 p-8 h-[690px] justify-center ">
-          <h1 className="font-bold text-7xl">
+          <h1 className="font-bold text-6xl">
             {" "}
-            Grounded AI <br />
-            <p className="text-[#1745CF]">Insights</p>
+            Less Hallucination. <br />
+            <p className="text-[#1745CF]">More Trusted Answers.</p>
           </h1>
           <p className="font-semibold text-xl">
-            Experience a low-hallucination AI assistant that builds knowledge
-            directly from your specific documents and trusted sources.
+            An AI assistant powered by your documents, systems, and validated
+            information to deliver accurate, context-aware insights you can
+            trust.
           </p>
           <Button size="lg" onClick={() => navigate("/login")}>
             {" "}
             Get Started
           </Button>
         </section>
-        <section className="w-1/2  px-16 py-8 flex flex-col justify-center">
+        {/* <section className="w-1/2  px-16 py-8 flex flex-col justify-center">
           <LandingPageImage />
-        </section>
+        </section> */}
       </div>
       <section>
         <div className="bg-[#F8FAFC]  flex flex-col   ">

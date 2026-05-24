@@ -7,6 +7,7 @@ import ResetCode from "./Login/reset-code";
 import { Register } from "./Register/register";
 import { LandingPage } from "./LandingPage/landing-page";
 import { ChatPage } from "./AIChatPage/chat-page";
+import { Dashboard } from "./Dashboard/dashboard";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: "/chat-page",
     element: <ChatPage />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
   },
 ]);
 
