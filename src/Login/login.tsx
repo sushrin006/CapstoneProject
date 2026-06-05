@@ -48,7 +48,11 @@ export const Login = () => {
               Forget Password?
             </Link>
 
-            <Button type="submit" fullWidth>
+            <Button
+              type="button"
+              fullWidth
+              onClick={() => navigate("/dashboard")}
+            >
               Sign In
             </Button>
           </form>
