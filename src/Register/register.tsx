@@ -6,14 +6,44 @@ import { registerSchema, type RegisterSchema } from "./schema/register-schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const Register = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
   });
-  const onsubmit = (data: RegisterSchema) => {
+  // const onsubmit = (data: RegisterSchema) => {
+  //   console.log(data);
+  // };
+  const onSubmit = async (data: RegisterSchema) => {
     console.log(data);
+    const payload = {
+      fullname: data.fullName,
+      email: data.email,
+      password: data.password,
+    };
+    const res = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.log(errorData);
+      // alert(errorData.detail);
+      toast(errorData.detail, {
+        position: "top-right",
+      });
+      return;
+    }
+    const responseData = await res.json();
+    toast.success("Account created successfully!", {
+      position: "top-right",
+    });
+    navigate("/dashboard");
   };
   return (
     <div>
@@ -27,7 +57,7 @@ export const Register = () => {
         </div>
         <div className="bg-white w-[30%] p-8 mt-4 rounded-lg">
           <section className="w-full space-y-6 p-4 mt-2">
-            <form className="space-y-4" onSubmit={handleSubmit(onsubmit)}>
+            <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               <div className="space-y-4">
                 <TextField
                   label="Full Name"

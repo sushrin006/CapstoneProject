@@ -5,15 +5,40 @@ import { loginSchema, type LoginSchema } from "./schema/login-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/button";
+import { toast } from "react-toastify";
 
 export const Login = () => {
   const navigate = useNavigate();
   const { register, setError, handleSubmit } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
   });
-  const onSubmit = (data: LoginSchema) => {
+  const onSubmit = async (data: LoginSchema) => {
     console.log(data);
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.log(errorData);
+      // alert(errorData.detail);
+      toast(errorData.detail, {
+        position: "top-right",
+      });
+      return;
+    }
+    const responseData = await res.json();
+    toast.success("Login successful!", {
+      position: "top-right",
+      
+    });
+    navigate("/dashboard");
   };
+
+  // const{}= usePost()
   return (
     <div className="bg-[#F6F6F8] flex justify-center w-full h-screen items-center ">
       <div className="bg-white w-[30%]  p-8 rounded-lg">
@@ -49,9 +74,9 @@ export const Login = () => {
             </Link>
 
             <Button
-              type="button"
+              type="submit"
               fullWidth
-              onClick={() => navigate("/dashboard")}
+              // onClick={() => navigate("/dashboard")}
             >
               Sign In
             </Button>

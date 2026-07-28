@@ -15,7 +15,10 @@ export const LandingPage = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <div className="flex justify-between p-4">
+      <div
+        className="flex justify-between p-4 "
+        
+      >
         <h1 className="text-xl font-bold"> Insight Engine</h1>
         <Button className="cursor-pointer" onClick={() => navigate("/login")}>
           {" "}
@@ -23,7 +26,7 @@ export const LandingPage = () => {
         </Button>
       </div>
       <div className="bg-[#F4F4F6] flex justify-center  gap-4 p-8">
-        <section className=" w-[50%] flex flex-col space-y-8 p-8 h-[690px] justify-center ">
+        <section className=" w-[50%] flex flex-col space-y-8 p-8 h-[690px] justify-center " >
           <h1 className="font-bold text-6xl">
             {" "}
             Less Hallucination. <br />
