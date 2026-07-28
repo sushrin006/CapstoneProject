@@ -8,6 +8,7 @@ import { Register } from "./Register/register";
 import { LandingPage } from "./LandingPage/landing-page";
 import { ChatPage } from "./AIChatPage/chat-page";
 import { Dashboard } from "./Dashboard/dashboard";
+import { NewPassword } from "./Login/new-password";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <Dashboard />,
   },
+  {
+    path: "/new-password",
+    element: <NewPassword />,
+  }
 ]);
 
 function App() {

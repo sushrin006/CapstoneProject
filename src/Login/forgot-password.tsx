@@ -3,14 +3,43 @@ import { TextField } from "../components/text-field";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ForgotPasswordSchema } from "./schema/forget-password-schema";
+import {
+  ForgotPasswordSchema,
+  type ForgotPasswordSchemaType,
+} from "./schema/forget-password-schema";
 import { Button } from "../components/button";
+import { toast } from "react-toastify";
 
 export const ForgotPassword = () => {
   const navigate = useNavigate();
-  const { register } = useForm({
+  const { register, watch } = useForm({
     resolver: zodResolver(ForgotPasswordSchema),
   });
+
+  const onSubmit = async () => {
+    const data = {
+      email: watch("email"),
+    };
+    const res = await fetch("/api/auth/forgot-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (res.ok) {
+      toast.success("Password reset instructions sent to your email!", {
+        position: "top-right",
+      });
+      navigate("/reset-password-code", { state: { email: data.email } });
+    }
+    if (!res.ok) {
+      const errorData = await res.json();
+      toast.error(errorData.detail, {
+        position: "top-right",
+      });
+    }
+  };
 
   return (
     <div className="bg-[#F6F6F8] flex justify-center w-full h-screen items-center ">
@@ -23,7 +52,11 @@ export const ForgotPassword = () => {
         </div>
         <div className="space-y-4 w-full flex flex-col justify-center items-center ">
           <TextField label="Email" placeholder="Email" {...register("email")} />
-          <Button fullWidth onClick={() => navigate("/reset-password-code")}>
+          <Button
+            fullWidth
+            onClick={onSubmit}
+            className="bg-[#5030E5] text-white hover:bg-[#5030E5]/90"
+          >
             {" "}
             Next <ArrowRight />{" "}
           </Button>
